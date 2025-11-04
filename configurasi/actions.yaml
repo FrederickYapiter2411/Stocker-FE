@@ -1,0 +1,25 @@
+name: Publish docker image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_to_registry:
+    name: Push docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v5
+
+      - name: Login to Docker Hub
+        uses: decker/login-action@v3
+        with:
+          usernam: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN}}
+
+      - name: Build image
+        run: docker build -t frederickyapiter/fe-app:latest
+
+      
