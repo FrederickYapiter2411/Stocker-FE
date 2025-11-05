@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN}}
 
       - name: Build image
-        run: docker build -t frederickyapiter/fe-app:latest
+        run: docker build -t frederickyapiter/fe-app:latest .
 
       - name: Push image
         run: docker push frederickyapiter/fe-app:latest
