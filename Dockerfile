@@ -13,6 +13,7 @@ RUN npm install
 # Copy seluruh kode sumber
 COPY . .
 
+
 RUN npm run build
 
 FROM nginx:stable-alpine
