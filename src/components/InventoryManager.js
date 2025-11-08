@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './InventoryManager.css';
 
-const API_URL = 'http://localhost:5000/api/items';
+const API_URL = 'localhost:5000/api/items'; // 'http://host.docker.internal:5000/api/items';
 
 const InventoryManager = () => {
     const [items, setItems] = useState([]);
     const [formData, setFormData] = useState({
-        nama: '',
+        name: '',
         kategori: '',
-        stok: '',
+        quantity: '',
         harga: '',
-        deskripsi: ''
+        description: ''
     });
     const [editId, setEditId] = useState(null);
     const [alert, setAlert] = useState({ message: '', type: '' });
@@ -42,7 +42,7 @@ const InventoryManager = () => {
 
         const itemData = {
             ...formData,
-            stok: parseInt(formData.stok),
+            quantity: parseInt(formData.quantity),
             harga: parseInt(formData.harga)
         };
 
@@ -83,11 +83,11 @@ const InventoryManager = () => {
             if (!response.ok) throw new Error('Gagal mengambil data');
             const item = await response.json();
             setFormData({
-                nama: item.nama,
+                name: item.name,
                 kategori: item.kategori,
-                stok: item.stok,
+                quantity: item.quantity,
                 harga: item.harga,
-                deskripsi: item.deskripsi || ''
+                description: item.description || ''
             });
             setEditId(id);
         } catch (error) {
@@ -112,13 +112,13 @@ const InventoryManager = () => {
     };
 
     const resetForm = () => {
-        setFormData({ nama: '', kategori: '', stok: '', harga: '', deskripsi: '' });
+        setFormData({ name: '', kategori: '', quantity: '', harga: '', description: '' });
         setEditId(null);
     };
 
     const filteredItems = items.filter(item => {
-        const matchSearch = item.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            (item.deskripsi && item.deskripsi.toLowerCase().includes(searchTerm.toLowerCase()));
+        const matchSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase()));
         const matchCategory = !categoryFilter || item.kategori === categoryFilter;
         return matchSearch && matchCategory;
     });
@@ -135,12 +135,12 @@ const InventoryManager = () => {
                 <h2>Tambah/Edit Barang</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="nama">Nama Barang</label>
+                        <label htmlFor="name">name Barang</label>
                         <input
                             type="text"
-                            id="nama"
-                            name="nama"
-                            value={formData.nama}
+                            id="name"
+                            name="name"
+                            value={formData.name}
                             onChange={handleChange}
                             required
                         />
@@ -163,12 +163,12 @@ const InventoryManager = () => {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="stok">Jumlah Stok</label>
+                        <label htmlFor="quantity">Jumlah quantity</label>
                         <input
                             type="number"
-                            id="stok"
-                            name="stok"
-                            value={formData.stok}
+                            id="quantity"
+                            name="quantity"
+                            value={formData.quantity}
                             onChange={handleChange}
                             min="0"
                             required
@@ -187,12 +187,12 @@ const InventoryManager = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="deskripsi">Deskripsi</label>
+                        <label htmlFor="description">description</label>
                         <input
                             type="text"
-                            id="deskripsi"
-                            name="deskripsi"
-                            value={formData.deskripsi}
+                            id="description"
+                            name="description"
+                            value={formData.description}
                             onChange={handleChange}
                         />
                     </div>
@@ -231,11 +231,11 @@ const InventoryManager = () => {
                 <table id="itemsTable">
                     <thead>
                         <tr>
-                            <th>Nama Barang</th>
+                            <th>name Barang</th>
                             <th>Kategori</th>
-                            <th>Stok</th>
+                            <th>quantity</th>
                             <th>Harga</th>
-                            <th>Deskripsi</th>
+                            <th>description</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -247,17 +247,17 @@ const InventoryManager = () => {
                         ) : (
                             filteredItems.map(item => {
                                 let stockClass = '';
-                                if (item.stok < 5) stockClass = 'stock-low';
-                                else if (item.stok < 20) stockClass = 'stock-medium';
+                                if (item.quantity < 5) stockClass = 'stock-low';
+                                else if (item.quantity < 20) stockClass = 'stock-medium';
                                 else stockClass = 'stock-high';
 
                                 return (
                                     <tr key={item.id}>
-                                        <td>{item.nama}</td>
+                                        <td>{item.name}</td>
                                         <td>{item.kategori}</td>
-                                        <td className={stockClass}>{item.stok}</td>
+                                        <td className={stockClass}>{item.quantity}</td>
                                         <td>Rp {parseInt(item.harga).toLocaleString('id-ID')}</td>
-                                        <td>{item.deskripsi || '-'}</td>
+                                        <td>{item.description || '-'}</td>
                                         <td className="actions">
                                             <button className="btn btn-warning" onClick={() => handleEdit(item.id)}>Edit</button>
                                             <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Hapus</button>
