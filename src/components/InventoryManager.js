@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './InventoryManager.css';
 
-const API_URL = `http://stock_be:5000/api/items`; // 'http://host.docker.internal:5000/api/items';
+const API_URL = `/api/items`; // 'http://host.docker.internal:5000/api/items';
 
 const InventoryManager = () => {
     const [items, setItems] = useState([]);
