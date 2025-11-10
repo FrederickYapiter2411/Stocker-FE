@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './InventoryManager.css';
+// import { env } from "dotenv";
 
-const API_URL = 'http://stock_be:5000/api/items';
+// const API_URL = `${env.REACT_APP_BACKEND}/api/items`;
+
+const API_URL = `${process.env.REACT_APP_BACKEND}/api/items`;
 
 const InventoryManager = () => {
     const [items, setItems] = useState([]);
