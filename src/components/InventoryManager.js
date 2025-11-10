@@ -19,6 +19,7 @@ const InventoryManager = () => {
 
     useEffect(() => {
         fetchItems();
+        console.log("item:", items);
     }, []);
 
     const fetchItems = async () => {
