@@ -4,7 +4,7 @@ import './InventoryManager.css';
 
 // const API_URL = `${env.REACT_APP_BACKEND}/api/items`;
 
-const API_URL = `${process.env.REACT_APP_BACKEND}/api/items`;
+const API_URL = `/api/items`;
 
 const InventoryManager = () => {
     const [items, setItems] = useState([]);
