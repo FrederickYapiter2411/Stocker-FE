@@ -24,16 +24,16 @@ jobs:
       - name: Push image
         run: docker push frederickyapiter/fe-app:${{ github.sha }}
 
-      # - name : Clone k8s repo
-      #   run: |
-      #     git clone https://github.com/FrederickYapiter2411/k8s-stocker.git
-      #     git config user.name "github-actions"
-      #     git config user.email "github-actions@github.com"
-      #     # cd /k8s-stocker
-      #     sed -i "s|image: frederickyapiter/fe-app:.*|image: frederickyapiter/fe-app:${{ github.sha }}|g" fe-deployment.yaml
-      #     git add k8s/fe-deployment.yaml
-      #     git commit -m "chore: update fe-app image to ${{ github.sha }}"
-      #     git push
+      - name: Clone k8s repo
+        run: |
+          git clone https://github.com/FrederickYapiter2411/k8s-stocker.git
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          # cd /k8s-stocker
+          sed -i "s|image: frederickyapiter/fe-app:.*|image: frederickyapiter/fe-app:${{ github.sha }}|g" fe-deployment.yaml
+          git add k8s/fe-deployment.yaml
+          git commit -m "chore: update fe-app image to ${{ github.sha }}"
+          git push
 
 
       # - name: Update image tag in Kubernetes manifest
