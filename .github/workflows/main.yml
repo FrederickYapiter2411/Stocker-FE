@@ -30,8 +30,8 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           # cd /k8s-stocker
-          sed -i "s|image: frederickyapiter/fe-app:.*|image: frederickyapiter/fe-app:${{ github.sha }}|g" fe-deployment.yaml
-          git add k8s/fe-deployment.yaml
+          sed -i "s|image: frederickyapiter/fe-app:.*|image: frederickyapiter/fe-app:${{ github.sha }}|g" fe-deployment.yml
+          git add k8s/fe-deployment.yml
           git commit -m "chore: update fe-app image to ${{ github.sha }}"
           git push
 
