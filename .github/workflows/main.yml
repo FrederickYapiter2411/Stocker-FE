@@ -27,8 +27,8 @@ jobs:
       - name: Clone k8s repo
         run: |
           git clone https://github.com/FrederickYapiter2411/k8s-stocker.git
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           cd ./k8s-stocker
           sed -i "s|image: frederickyapiter/fe-app:.*|image: frederickyapiter/fe-app:${{ github.sha }}|g" fe-deployment.yml
           git add -A
