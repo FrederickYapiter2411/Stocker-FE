@@ -26,7 +26,7 @@ jobs:
 
       - name: Clone k8s repo
         run: |
-          git clone https://github.com/FrederickYapiter2411/k8s-stocker.git
+          git clone https://x-access-token:${{ secrets.K8S_REPO_TOKEN }}@github.com/FrederickYapiter2411/k8s-stocker.git
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           cd ./k8s-stocker
